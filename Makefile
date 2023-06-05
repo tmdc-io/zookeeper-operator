@@ -193,3 +193,39 @@ check-format:
 
 check-license:
 	./scripts/check_license.sh
+
+
+
+#Github Action pipeline configraion.
+.release:
+	echo "Creating release with => $(CMD) ..."
+	docker run --rm -it \
+  -v "`pwd`:/home/build/working_dir" \
+  -v ~/.gitconfig:/home/build/.gitconfig \
+  -v ~/.ssh:/home/build/.ssh \
+  rubiklabs/builder:0.2.0 \
+  $(CMD)
+
+release-dev-major: CMD=dev major
+release-dev-major: .release
+
+release-dev-minor: CMD=dev minor
+release-dev-minor: .release
+
+release-dev-patch: CMD=dev patch
+release-dev-patch: .release
+
+release-dev-none: CMD=dev none
+release-dev-none: .release
+
+release-public-major: CMD=public major
+release-public-major: .release
+
+release-public-minor: CMD=public minor
+release-public-minor: .release
+
+release-public-patch: CMD=public patch
+release-public-patch: .release
+
+release-public-none: CMD=public none
+release-public-none: .release
