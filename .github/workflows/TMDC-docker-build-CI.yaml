@@ -10,7 +10,6 @@ env:
   PROJECT_NAME: zookeeper-operator
   EXPORTER_NAME: zookeeper-exporter
   VERSION: ${{ github.ref_name }}
-  REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
 
 jobs:
 # For DEV RELEASE
@@ -30,6 +29,8 @@ jobs:
       run: make test
 
     - name: Build Go packages
+      env:
+          REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
       run: |
         echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
         make build-go
@@ -52,7 +53,8 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: 
+        build-args:
+            DOCKER_REGISTRY=docker.io
             DISTROLESS_DOCKER_REGISTRY=gcr.io
             GIT_SHA=${{ env.GIT_SHA }}
             VERSION=$VERSION
@@ -91,6 +93,8 @@ jobs:
       run: make test
 
     - name: Build Go packages
+      env:
+          REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
       run: |
         echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
         make build-go
