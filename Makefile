@@ -10,16 +10,16 @@ SHELL=/bin/bash -o pipefail
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS ?= "crd"
 
-PROJECT_NAME=zookeeper-operator
-EXPORTER_NAME=zookeeper-exporter
+# PROJECT_NAME=zookeeper-operator
+# EXPORTER_NAME=zookeeper-exporter
 APP_NAME=zookeeper
-REPO=pravega/$(PROJECT_NAME)
+# REPO=pravega/$(PROJECT_NAME)
 TEST_REPO=testzkop/$(PROJECT_NAME)
 APP_REPO=pravega/$(APP_NAME)
 ALTREPO=emccorp/$(PROJECT_NAME)
 APP_ALTREPO=emccorp/$(APP_NAME)
-VERSION=$(shell git describe --always --tags --dirty | tr -d "v" | sed "s/\(.*\)-g`git rev-parse --short HEAD`/\1/")
-GIT_SHA=$(shell git rev-parse --short HEAD)
+# VERSION=$(shell git describe --always --tags --dirty | tr -d "v" | sed "s/\(.*\)-g`git rev-parse --short HEAD`/\1/")
+# GIT_SHA=$(shell git rev-parse --short HEAD)
 TEST_IMAGE=$(TEST_REPO)-testimages:$(VERSION)
 DOCKER_TEST_PASS=testzkop@123
 DOCKER_TEST_USER=testzkop
