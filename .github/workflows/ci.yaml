@@ -3,15 +3,7 @@ name: CI
 
 # on events
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  release:
-    types:
-      - created
+  workflow_dispatch
 
 # jobs to run
 jobs:
