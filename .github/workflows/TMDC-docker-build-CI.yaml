@@ -9,8 +9,10 @@ on:
 env:
   PROJECT_NAME: zookeeper-operator
   EXPORTER_NAME: zookeeper-exporter
+  ORG_NAME: rubik-ai
   VERSION: ${{ github.ref_name }}
   GIT_SHA: ${{ github.sha }}
+
 
 jobs:
 # For DEV RELEASE
@@ -57,7 +59,7 @@ jobs:
             DISTROLESS_DOCKER_REGISTRY=gcr.io
             GIT_SHA=${{ env.GIT_SHA }}
             VERSION=${{ env.VERSION }}
-            REPO_PATH=github.com/${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}
+            REPO_PATH=github.com/${{ env.ORG_NAME }}/${{ env.PROJECT_NAME }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zookeeper-operator:${{ github.ref_name }}
 
     - name: Build and Push zookeeper Docker image
@@ -119,7 +121,7 @@ jobs:
             DISTROLESS_DOCKER_REGISTRY=gcr.io
             GIT_SHA=${{ env.GIT_SHA }}
             VERSION=${{ env.VERSION }}
-            REPO_PATH=github.com/${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}
+            REPO_PATH=github.com/${{ env.ORG_NAME }}/${{ env.PROJECT_NAME }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zookeeper-operator:${{ github.ref_name }}
 
     - name: Build and Push zookeeper Docker image
