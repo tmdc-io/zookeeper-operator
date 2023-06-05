@@ -10,6 +10,7 @@ env:
   PROJECT_NAME: zookeeper-operator
   EXPORTER_NAME: zookeeper-exporter
   VERSION: ${{ github.ref_name }}
+  GIT_SHA: ${{ github.sha }}
 
 jobs:
 # For DEV RELEASE
@@ -30,10 +31,8 @@ jobs:
 
     - name: Build Go packages
       env:
-          REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
-      run: |
-        echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        make build-go
+          REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}
+      run: make build-go
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -53,12 +52,12 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args:
+        build-args: |
             DOCKER_REGISTRY=docker.io
             DISTROLESS_DOCKER_REGISTRY=gcr.io
             GIT_SHA=${{ env.GIT_SHA }}
-            VERSION=$VERSION
-            REPO_PATH=github.com/${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
+            VERSION=${{ env.VERSION }}
+            REPO_PATH=github.com/${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zookeeper-operator:${{ github.ref_name }}
 
     - name: Build and Push zookeeper Docker image
@@ -70,10 +69,10 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: 
+        build-args: |
             DOCKER_REGISTRY=docker.io
             GIT_SHA=${{ env.GIT_SHA }}
-            VERSION=$VERSION
+            VERSION=${{ env.VERSION }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zookeeper:${{ github.ref_name }}    
 
 # For PUBLIC RELEASE
@@ -94,10 +93,8 @@ jobs:
 
     - name: Build Go packages
       env:
-          REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
-      run: |
-        echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        make build-go
+          REPO: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}
+      run: make build-go
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -117,11 +114,11 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: 
+        build-args: |
             DISTROLESS_DOCKER_REGISTRY=gcr.io
             GIT_SHA=${{ env.GIT_SHA }}
-            VERSION=$VERSION
-            REPO_PATH=github.com/${{ secrets.DOCKER_HUB_USERNAME }}/$PROJECT_NAME
+            VERSION=${{ env.VERSION }}
+            REPO_PATH=github.com/${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zookeeper-operator:${{ github.ref_name }}
 
     - name: Build and Push zookeeper Docker image
@@ -133,8 +130,8 @@ jobs:
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        build-args: 
+        build-args: |
             DOCKER_REGISTRY=docker.io
             GIT_SHA=${{ env.GIT_SHA }}
-            VERSION=$VERSION
+            VERSION=${{ env.VERSION }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/zookeeper:${{ github.ref_name }}        
