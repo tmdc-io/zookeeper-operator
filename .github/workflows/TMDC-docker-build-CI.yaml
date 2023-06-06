@@ -3,7 +3,7 @@ name: TMDC Docker Image CI workflow
 on:
   push:
     tags:
-      - '*[0-9]+.*[0-9]+.*[0-9]*'
+      - '*[0-9]+.*[0-9]+.*[0-9]-d*'
 
 env:
   PROJECT_NAME: zookeeper-operator
