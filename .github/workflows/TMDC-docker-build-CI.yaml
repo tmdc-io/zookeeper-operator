@@ -17,7 +17,7 @@ jobs:
 # RELEASE STEPS
 
   release:
-    name: Dev release Build and Push Docker image to Docker Hub
+    name: Release Build and Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     
     if: startsWith(github.ref, 'refs/tags/') && contains(github.ref, '-d')
