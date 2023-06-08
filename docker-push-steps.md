@@ -1,5 +1,19 @@
 # Steps to Docker build and push to DockerHub private repo
 
+## Automated Steps
+
+Run ```sh make git-push ``` from root directory.
+
+It will automatically trigger the the github action pipeline with automated versioning.
+
+**NOTE:** If you see there is a new Image Version released by official team and you merged the changes in your repo
+please updated the ```sh VERSION ``` variable manually in release.yaml file (don't touch the suffix(-d..)it will be 
+automatically taken care by script).
+```sh
+VERSION=9.5.2-d1
+```
+
+## Manual Steps
 Once you are ready with your changes - 
 
 Run **git tag** command from root directory

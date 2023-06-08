@@ -194,7 +194,9 @@ check-format:
 check-license:
 	./scripts/check_license.sh
 
-
+# Run to Trigger the GitHub Action Pipeline
+git-push:
+	./automate-version-script.sh
 
 #Github Action pipeline configraion.
 

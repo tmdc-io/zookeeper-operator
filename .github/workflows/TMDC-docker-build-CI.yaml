@@ -51,8 +51,8 @@ jobs:
         file: ./Dockerfile
         platforms: linux/amd64
         push: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        # cache-from: type=gha
+        # cache-to: type=gha,mode=max
         build-args: |
             DOCKER_REGISTRY=docker.io
             DISTROLESS_DOCKER_REGISTRY=gcr.io
@@ -68,8 +68,8 @@ jobs:
         file: ./docker/Dockerfile
         platforms: linux/amd64
         push: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        # cache-from: type=gha
+        # cache-to: type=gha,mode=max
         build-args: |
             DOCKER_REGISTRY=docker.io
             GIT_SHA=${{ env.GIT_SHA }}
