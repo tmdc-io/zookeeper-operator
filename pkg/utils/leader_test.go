@@ -1,12 +1,12 @@
 /**
- * Copyright (c) 2018 Dell Inc., or its subsidiaries. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- */
+* Copyright (c) 2018 Dell Inc., or its subsidiaries. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*/
 
 package utils
 
@@ -77,7 +77,8 @@ var _ = Describe("Leader election utils", func() {
 					},
 				}
 
-				client = fake.NewFakeClientWithScheme(clientscheme.Scheme, []runtime.Object{currentPod, otherPod, lockConfigMap}...)
+				client = fake.NewClientBuilder().WithScheme(clientscheme.Scheme).WithRuntimeObjects(
+					[]runtime.Object{currentPod, otherPod, lockConfigMap}...).Build()
 
 				err = precheckLeaderLock(ctx, client, configmapName, namespace)
 			})
@@ -101,7 +102,7 @@ var _ = Describe("Leader election utils", func() {
 						},
 					},
 				}
-				client = fake.NewFakeClientWithScheme(clientscheme.Scheme, []runtime.Object{currentPod, otherPod, lockConfigMap}...)
+				client = fake.NewClientBuilder().WithScheme(clientscheme.Scheme).WithRuntimeObjects([]runtime.Object{currentPod, otherPod, lockConfigMap}...).Build()
 				err = precheckLeaderLock(ctx, client, configmapName, namespace)
 			})
 

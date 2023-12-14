@@ -1,12 +1,12 @@
 /**
- * Copyright (c) 2018 Dell Inc., or its subsidiaries. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (&the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- */
+* Copyright (c) 2018 Dell Inc., or its subsidiaries. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (&the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*/
 
 package e2e
 
@@ -86,10 +86,8 @@ var _ = BeforeSuite(func() {
 
 	if os.Getenv("RUN_LOCAL") == "true" {
 		k8sManager, err := ctrl.NewManager(cfg, ctrl.Options{
-			Scheme:    scheme.Scheme,
-			Namespace: testNamespace,
-			Port:      9443,
-			NewCache:  cache.MultiNamespacedCacheBuilder([]string{testNamespace}),
+			Scheme: scheme.Scheme,
+			Cache:  cache.Options{Namespaces: []string{testNamespace}},
 		})
 		Expect(err).ToNot(HaveOccurred())
 
