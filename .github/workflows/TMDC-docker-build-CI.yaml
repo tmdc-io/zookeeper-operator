@@ -27,6 +27,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Install Go
+      uses: actions/setup-go@v4
+      with:
+        go-version-file: go.mod
+
     - name: Test Go packages
       run: make test
 
