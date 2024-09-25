@@ -15,7 +15,7 @@ COPY zu /zu
 WORKDIR /zu
 RUN ./gradlew --console=verbose --info shadowJar
 
-FROM $DOCKER_REGISTRY/zookeeper:3.7.2
+FROM $DOCKER_REGISTRY/zookeeper:3.9.2
 COPY bin /usr/local/bin
 RUN chmod +x /usr/local/bin/*
 COPY --from=0 /zu/build/libs/zu.jar /opt/libs/
